@@ -1,0 +1,71 @@
+<div class="containter">
+  <div class="row">
+    <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-6">
+            <form [formGroup]="packageForm">
+                <div formArrayName="packages">
+            
+                  <div *ngFor="let package of packagesArray.controls; let i=index" 
+                        [formGroupName]="i">
+            
+                    <div class="formgroup">
+                      <label for="name">Name</label>
+                      <input type="text" formControlName="name" [ngClass]="{'form-control': true,
+                      'is-invalid': package.controls.name.invalid && package.controls.name.touched,
+                      'is-valid': package.controls.name.valid}" id="addText" placeholder="Enter a name">
+                      <small *ngIf="package.controls.name.invalid && package.controls.name.touched" class="form-text custom-invalid-feedback">Field is required</small>
+                      <!-- <small *ngIf="package.controls.name.errors.maxlength">Name can be maximum 32 characters long.</small> -->
+                    </div>   
+
+                    <div class="formgroup">
+                        <label for="name">weight</label>
+                        <input type="number" max="10" formControlName="weight" [ngClass]="{'form-control': true,
+                        'is-invalid': package.controls.weight.invalid && package.controls.weight.touched,
+                        'is-valid': package.controls.weight.valid}" id="addText" placeholder="Enter a weight">
+                        <small *ngIf="package.controls.weight.invalid && package.controls.weight.touched" class="form-text custom-invalid-feedback">Field is required</small>
+                      </div> 
+
+                      <div class="formgroup">
+                        <label for="name">value</label>
+                        <input type="text" formControlName="value" [ngClass]="{'form-control': true,
+                        'is-invalid': package.controls.value.invalid && package.controls.value.touched,
+                        'is-valid': package.controls.value.valid}" id="addText" placeholder="Enter a value">
+                        <small *ngIf="package.controls.value.invalid && package.controls.value.touched" class="form-text custom-invalid-feedback">Field is required</small>
+                      </div> 
+
+                    <div class="formgroup"> 
+                      <label for="currency">Currency</label>
+                      <select formControlName="currency" [ngClass]="{'form-control': true,
+                      'is-invalid': package.controls.currency.invalid && package.controls.currency.touched,
+                      'is-valid': package.controls.currency.valid}" id="addText">
+                      <small *ngIf="package.controls.currency.invalid && package.controls.currency.touched" class="form-text custom-invalid-feedback">Field is required</small>
+                          <option [value]="currency" *ngFor="let currency of currencies">{{currency}}</option>
+                        </select>
+                    </div>  
+
+                    <div>
+                      <button (click)="deletePackage(i)" class="btn btn-primary">Delete</button>
+                    </div>   
+
+                  </div>
+              </div>
+              <div>
+                <button (click)="addPackage()" class="btn btn-primary">Add package</button>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col-2">
+                  <button type="button" [disabled]="!packageForm.invalid" (click)="submitHandler()" class="btn btn-primary">Submit</button>
+                </div>
+              </div>   
+          </form>
+
+          <div class="total">Total package weight: {{totalWeight}}</div>
+          <div>Total package value: {{totalValue}}</div>
+          <div>Total packages:{{totalPackages}}</div>
+
+        </div>
+      </div>  
+    </div>
+  </div>
+</div>
